@@ -43,20 +43,13 @@ const results = document.querySelector(".results");
 //function than display poster and title from a fetch movie.
 const displayMovies = (movies) => {
   for (const movie of movies) {
-    const anchor = document.createElement("a");
+    const anchor = document.createElement("a"); //anchor bc bulma doc is an anchor for dropmenu.
     anchor.classList.add("dropdown-item"); //css class for dropdown in bulmca documentation.
     anchor.innerHTML = `
       <img src="${movie.Poster}">
       <h2>${movie.Title}</h2>
     `;
     results.append(anchor);
-
-    // const div = document.createElement("div");
-    // div.innerHTML = `
-    // <h2>${movie.Title}</h2>
-    // <img src="${movie.Poster}">
-    // `;
-    // document.querySelector("#target").append(div);
   }
 };
 
