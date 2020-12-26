@@ -1,3 +1,10 @@
+// const displayMoviError = (error) => {
+//   const div = document.createElement("div");
+//   return (div.innerHTML = `
+//   <p>${error}</p>
+//   `);
+// };
+
 //fetch api with axios.
 const fetchData = async (searchMovie) => {
   const resp = await axios.get("http://www.omdbapi.com/", {
@@ -6,21 +13,50 @@ const fetchData = async (searchMovie) => {
       s: searchMovie,
     },
   });
+  //return a empty array until make the dropdown seatchbar.(FIX AFTER)
+  if (resp.data.Error) {
+    return [];
+  }
   return resp.data.Search;
 };
+//select the root elemt for append results
+const root = document.querySelector(".autocomplete");
+root.innerHTML = `
+  <label><b> Search for a movie </label>
+  <input class="input"/>
+  <div class="dropdown>
+    <div class="dropdown-menu">
+      <div class="dropdown-content results">  
+      </div>
+    </div>
+            
+  </div>
 
+`;
 //select the input
 const input = document.querySelector(".container input ");
+//select the dropdown div for show the dropmenu or not.
+const dropdown = document.querySelector(".dropdown");
+//select the reulst for display the content.
+const results = document.querySelector(".results");
 
 //function than display poster and title from a fetch movie.
 const displayMovies = (movies) => {
   for (const movie of movies) {
-    const div = document.createElement("div");
-    div.innerHTML = `
-    <h2>${movie.Title}</h2>
-    <img src="${movie.Poster}">
+    const anchor = document.createElement("a");
+    anchor.classList.add("dropdown-item"); //css class for dropdown in bulmca documentation.
+    anchor.innerHTML = `
+      <img src="${movie.Poster}">
+      <h2>${movie.Title}</h2>
     `;
-    document.querySelector("#target").append(div);
+    results.append(anchor);
+
+    // const div = document.createElement("div");
+    // div.innerHTML = `
+    // <h2>${movie.Title}</h2>
+    // <img src="${movie.Poster}">
+    // `;
+    // document.querySelector("#target").append(div);
   }
 };
 
