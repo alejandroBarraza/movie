@@ -22,7 +22,7 @@ const fetchData = async (searchMovie) => {
 //select the root elemt for append results
 const root = document.querySelector(".autocomplete");
 root.innerHTML = `
-  <label><b> Search for a movie </label>
+  <label><b> Search for an Anime </label>
   <input class="input"/>
   <div class="dropdown">
     <div class="dropdown-menu">
@@ -39,7 +39,7 @@ const dropdown = document.querySelector(".dropdown");
 //select the reulst for display the content.
 const results = document.querySelector(".results");
 //select the dropdown menu
-const menu = document.querySelector("dropdown-menu");
+const menu = document.querySelector(".dropdown-menu");
 
 //function than display poster and title from a fetch movie.
 const displayMovies = (movies) => {
@@ -56,6 +56,10 @@ const displayMovies = (movies) => {
       <img src="${imgSrc}">
       <h2>${movie.Title}</h2>
     `;
+    anchor.addEventListener("click", () => {
+      dropdown.classList.remove("is-active");
+      input.value = movie.Title;
+    });
     results.append(anchor);
   }
 };
@@ -63,7 +67,16 @@ const displayMovies = (movies) => {
 //fuction fetch a movie each time user type.
 const onInput = async ({ target }) => {
   //async beacuse movies should wait for fectch the movie.
+
   const movies = await fetchData(target.value); //movies constains the arrays of list movies
+
+  //if i do the fetch and got an empty array .close the dropmenu.
+  if (!movies.length) {
+    //contains a empty array.
+    dropdown.classList.remove("is-active");
+    return; //return for dont enter in the another part of the code.
+  }
+
   dropdown.classList.add("is-active");
   //console.log(movies);
   displayMovies(movies);
@@ -71,3 +84,13 @@ const onInput = async ({ target }) => {
 
 //events that each times textValue change makes a fetch with debounce at 500ms delate.
 input.addEventListener("input", debounce(onInput, 500));
+
+//events to close the dropmenu is user click OUTSIDE the menu options.
+document.addEventListener("click", ({ target }) => {
+  //console.log(event.target);
+  //doing click outside root elements(root element grab all the menu)
+  if (!root.contains(target)) {
+    //if root not contains events target.means clicking outside this parent elemtent.
+    dropdown.classList.remove("is-active");
+  }
+});
