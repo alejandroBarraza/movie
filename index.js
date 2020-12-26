@@ -24,12 +24,11 @@ const root = document.querySelector(".autocomplete");
 root.innerHTML = `
   <label><b> Search for a movie </label>
   <input class="input"/>
-  <div class="dropdown>
+  <div class="dropdown">
     <div class="dropdown-menu">
       <div class="dropdown-content results">  
       </div>
-    </div>
-            
+    </div>         
   </div>
 
 `;
@@ -39,14 +38,22 @@ const input = document.querySelector(".container input ");
 const dropdown = document.querySelector(".dropdown");
 //select the reulst for display the content.
 const results = document.querySelector(".results");
+//select the dropdown menu
+const menu = document.querySelector("dropdown-menu");
 
 //function than display poster and title from a fetch movie.
 const displayMovies = (movies) => {
+  //before display more movies.clean the dropdown content.
+  //for the first time will me empty so doenst matters.
+  results.innerHTML = "";
+
   for (const movie of movies) {
     const anchor = document.createElement("a"); //anchor bc bulma doc is an anchor for dropmenu.
     anchor.classList.add("dropdown-item"); //css class for dropdown in bulmca documentation.
+    //check for broken images comming from API.
+    const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
     anchor.innerHTML = `
-      <img src="${movie.Poster}">
+      <img src="${imgSrc}">
       <h2>${movie.Title}</h2>
     `;
     results.append(anchor);
@@ -57,6 +64,7 @@ const displayMovies = (movies) => {
 const onInput = async ({ target }) => {
   //async beacuse movies should wait for fectch the movie.
   const movies = await fetchData(target.value); //movies constains the arrays of list movies
+  dropdown.classList.add("is-active");
   //console.log(movies);
   displayMovies(movies);
 };
