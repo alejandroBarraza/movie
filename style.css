@@ -152,3 +152,20 @@ figure .image img {
   color: white;
   margin: 1rem;
 }
+
+/* section display movie datails  */
+#left-summary {
+  display: none;
+  background-color: var(--navbar-color);
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.media {
+  background-color: #444869;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+.colums {
+  margin: 1rem;
+}

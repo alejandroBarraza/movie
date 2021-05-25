@@ -61,12 +61,14 @@ const onMovieSelect = async (movie, summaryTarget) => {
     },
   });
   //select target summary in html and replace with movietemplate funcion.
+  summaryTarget.style.display = "block";
   summaryTarget.innerHTML = movieTemplate(resp.data);
 };
 
 //function than display the html view from statistics
 const movieTemplate = (movieDetail) => {
   return `
+  
     <article class = "media">
       <figure class = "media-left">
         <p class ="image">
@@ -81,25 +83,26 @@ const movieTemplate = (movieDetail) => {
         </div>
       </div>
     </article>
-    <article class="notification is-primary"> 
+    <article class="notification "> 
       <p class="title">${movieDetail.Awards}</p>
       <p class="subtitle">Awards</p>
     </article>
-    <article class="notification is-primary"> 
+    <article class="notification "> 
       <p class="title">${movieDetail.BoxOffice}</p>
       <p class="subtitle">Box Office</p>
     </article>
-    <article class="notification is-primary"> 
+    <article class="notification "> 
       <p class="title">${movieDetail.Metascore}</p>
       <p class="subtitle">Metascore</p>
     </article>
-    <article class="notification is-primary"> 
+    <article class="notification "> 
       <p class="title">${movieDetail.imdbRating}</p>
       <p class="subtitle">IMDB Raiting</p>
     </article>
-    <article class="notification is-primary"> 
+    <article class="notification "> 
       <p class="title">${movieDetail.imdbVotes}</p>
       <p class="subtitle">Votes</p>
     </article>
+  
   `;
 };
