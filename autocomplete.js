@@ -2,7 +2,7 @@
 const createAutocomplete = ({ root, renderOption, onOptionSelect, inputValue, onFetchData }) => {
   //select the root elemt for append results
   root.innerHTML = `
-  <label><b> Search  </label>
+  <label class="color"><b> Search  </label>
   <input class="input"/>
   <div class="dropdown">
     <div class="dropdown-menu">

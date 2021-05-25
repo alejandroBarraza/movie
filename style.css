@@ -22,7 +22,7 @@ li,
 button,
 label,
 input,
-a,
+label,
 p {
   font-size: 2.5rem;
 }
@@ -60,6 +60,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 8rem;
 }
 nav {
   display: flex;
@@ -81,10 +82,23 @@ nav {
   flex: 1 1 20rem;
   justify-content: space-around;
 }
+
+/* movie versus section  */
+.input {
+  padding: 1.5rem;
+  color: white;
+  background-color: var(--navbar-color);
+  border: none;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
 .tutorial {
   width: 600px;
   text-align: center;
   margin: auto;
+  background-color: var(--navbar-color);
+  border-radius: 1rem;
 }
 
 figure.image {
@@ -128,4 +142,13 @@ figure .image img {
 .dropdown-item img {
   height: 50px;
   margin-right: 10px;
+}
+.color {
+  color: white;
+  font-weight: 300;
+}
+.tutorial h1,
+.tutorial p {
+  color: white;
+  margin: 1rem;
 }
