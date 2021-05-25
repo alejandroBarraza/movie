@@ -1,11 +1,5 @@
 //reusable functinon for an input search
-const createAutocomplete = ({
-  root,
-  renderOption,
-  onOptionSelect,
-  inputValue,
-  onFetchData,
-}) => {
+const createAutocomplete = ({ root, renderOption, onOptionSelect, inputValue, onFetchData }) => {
   //select the root elemt for append results
   root.innerHTML = `
   <label><b> Search  </label>
@@ -18,6 +12,7 @@ const createAutocomplete = ({
   </div>
 
 `;
+
   //select the input
   const input = root.querySelector(".container input ");
   //select the dropdown div for show the dropmenu or not.

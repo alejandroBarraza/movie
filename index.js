@@ -8,14 +8,13 @@ const autocomplete = {
     <h2>${movie.Title}</h2>
   `;
   },
-  onOptionSelect(movie) {
-    //before render the movie data.hide tutorial banner.
-    document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie);
-  },
+
+  // return movie title
   inputValue(movie) {
     return movie.Title;
   },
+
+  // fetch data show up in dropmenu
   async onFetchData(searchTerm) {
     const resp = await axios.get("http://www.omdbapi.com/", {
       params: {
@@ -32,20 +31,29 @@ const autocomplete = {
 };
 
 //first input search
-
 createAutocomplete({
   root: document.querySelector("#left-autocomplete"),
+  onOptionSelect(movie) {
+    //before render the movie data.hide tutorial banner.
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    onMovieSelect(movie, document.querySelector("#left-summary"));
+  },
   ...autocomplete,
 });
 
 //second input search.
 createAutocomplete({
   root: document.querySelector("#right-autocomplete"),
+  onOptionSelect(movie) {
+    //before render the movie data.hide tutorial banner.
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    onMovieSelect(movie, document.querySelector("#right-summary"));
+  },
   ...autocomplete,
 });
 
 //second fetch for after movie selection and see full details.
-const onMovieSelect = async (movie) => {
+const onMovieSelect = async (movie, summaryTarget) => {
   const resp = await axios.get("http://www.omdbapi.com/", {
     params: {
       apikey: "ec9bde75",
@@ -53,7 +61,7 @@ const onMovieSelect = async (movie) => {
     },
   });
   //select target summary in html and replace with movietemplate funcion.
-  document.querySelector("#summary").innerHTML = movieTemplate(resp.data);
+  summaryTarget.innerHTML = movieTemplate(resp.data);
 };
 
 //function than display the html view from statistics
