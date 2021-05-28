@@ -4,6 +4,8 @@
   --backgorund-color: #2b2d42;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +26,7 @@ label,
 input,
 label,
 p {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 h1 {
@@ -32,7 +34,8 @@ h1 {
 }
 
 h2 {
-  font-size: 4rem;
+  font-size: 2.7rem;
+  color: white;
 }
 
 h3 {
@@ -56,8 +59,9 @@ ul {
 /* navar section  */
 .section-header {
   background-color: var(--navbar-color);
-  min-height: 10vh;
   display: flex;
+
+  min-width: auto;
   justify-content: center;
   align-items: center;
   margin-bottom: 8rem;
@@ -72,6 +76,9 @@ nav {
   color: white;
   display: flex;
   flex: 2 1 40rem;
+}
+.logo-container h1 {
+  font-family: "Great Vibes", cursive;
 }
 .logo-container a img {
   background-color: white;
@@ -109,15 +116,21 @@ figure.image {
 
 figure .image img {
   width: 128px;
+  height: 200px;
+  border-radius: 0.5rem;
+  object-fit: cover;
 }
 
 .notification {
   margin-top: 20px !important;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 .results {
   max-height: 500px;
   overflow-y: scroll;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .title .icon {
@@ -160,12 +173,26 @@ figure .image img {
   margin-top: 1rem;
   padding: 1rem;
   border-radius: 1rem;
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
+}
+#right-summary {
+  display: none;
+  background-color: var(--navbar-color);
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.1);
 }
 .media {
-  background-color: #444869;
+  /* color: white; */
+  background-color: rgba(255, 255, 255, 0.2);
   padding: 0.5rem;
   border-radius: 1rem;
+  /* box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.1); */
 }
-.colums {
+.content-style {
+  color: white !important;
+}
+.column-add {
   margin: 1rem;
 }
