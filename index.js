@@ -36,7 +36,7 @@ createAutocomplete({
   onOptionSelect(movie) {
     //before render the movie data.hide tutorial banner.
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie, document.querySelector("#left-summary"));
+    onMovieSelect(movie, document.querySelector("#left-summary"), "left");
   },
   ...autocomplete,
 });
@@ -47,13 +47,13 @@ createAutocomplete({
   onOptionSelect(movie) {
     //before render the movie data.hide tutorial banner.
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie, document.querySelector("#right-summary"));
+    onMovieSelect(movie, document.querySelector("#right-summary"), "right");
   },
   ...autocomplete,
 });
 
 //second fetch for after movie selection and see full details.
-const onMovieSelect = async (movie, summaryTarget) => {
+const onMovieSelect = async (movie, summaryTarget, side) => {
   const resp = await axios.get("http://www.omdbapi.com/", {
     params: {
       apikey: "ec9bde75",
@@ -63,6 +63,14 @@ const onMovieSelect = async (movie, summaryTarget) => {
   //select target summary in html and replace with movietemplate funcion.
   summaryTarget.style.display = "block";
   summaryTarget.innerHTML = movieTemplate(resp.data);
+  onMovieCompare(summaryTarget);
+};
+
+const onMovieCompare = (summaryTargetLeft, summaryTargetRight) => {
+  const statisticToCompareL = summaryTargetLeft.querySelectorAll(".notification .title");
+  // const statisticToCompareR = summaryTargetRight.querySelectorAll(".notification .title");
+  const [awardsL, boxOfficeL, MetascoreL, ratingL, votesL] = statisticToCompareL.values();
+  // const [awardsR, boxOfficeR, MetascoreR, ratingR, votesR] = statisticToCompareR.values();
 };
 
 //function than display the html view from statistics
@@ -77,9 +85,9 @@ const movieTemplate = (movieDetail) => {
       </figure>
       <div class="media-content">
         <div class="content">
-          <h1>${movieDetail.Title}</h1>
-          <h4>${movieDetail.Genre}</h4>
-          <p>${movieDetail.Plot}</P
+          <h1 class="content-style">${movieDetail.Title}</h1>
+          <h4 class="content-style">${movieDetail.Genre}</h4>
+          <p class="content-style">${movieDetail.Plot}</P
         </div>
       </div>
     </article>
