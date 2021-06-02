@@ -52,6 +52,8 @@ createAutocomplete({
   ...autocomplete,
 });
 
+let left;
+let right;
 //second fetch for after movie selection and see full details.
 const onMovieSelect = async (movie, summaryTarget, side) => {
   const resp = await axios.get("http://www.omdbapi.com/", {
@@ -63,14 +65,37 @@ const onMovieSelect = async (movie, summaryTarget, side) => {
   //select target summary in html and replace with movietemplate funcion.
   summaryTarget.style.display = "block";
   summaryTarget.innerHTML = movieTemplate(resp.data);
-  onMovieCompare(summaryTarget);
+  if (side === "left") {
+    left = resp.data;
+    console.log(left);
+  } else {
+    right = resp.data;
+    console.log(right);
+  }
+
+  if (left && right) {
+    console.log("run comparison");
+    onMovieCompare();
+  }
 };
 
-const onMovieCompare = (summaryTargetLeft, summaryTargetRight) => {
-  const statisticToCompareL = summaryTargetLeft.querySelectorAll(".notification .title");
-  // const statisticToCompareR = summaryTargetRight.querySelectorAll(".notification .title");
-  const [awardsL, boxOfficeL, MetascoreL, ratingL, votesL] = statisticToCompareL.values();
-  // const [awardsR, boxOfficeR, MetascoreR, ratingR, votesR] = statisticToCompareR.values();
+const onMovieCompare = () => {
+  console.log("entre");
+  const statisticToCompareL = document.querySelectorAll("#left-summary .notification");
+  const statisticToCompareR = document.querySelectorAll("#right-summary .notification");
+  // const [awardsL, boxOfficeL, MetascoreL, ratingL, votesL] = statisticToCompareL.values();
+  statisticToCompareL.forEach((leftStat, index) => {
+    // rightStat = statisticToCompareR[index];
+    const valueleft = {
+      dollard: leftStat.querySelector(".title").innerText,
+    };
+    console.log(valueleft.dollard);
+  });
+
+  // if (side == "right") {
+  //   const [awardsR, boxOfficeR, MetascoreR, ratingR, votesR] = statisticToCompareR.values();
+  // }
+  // const box = boxOfficeL > boxOfficeR ? console.log("win") : console.log("lose");
 };
 
 //function than display the html view from statistics
