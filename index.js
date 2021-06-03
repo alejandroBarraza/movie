@@ -81,37 +81,46 @@ const onMovieCompare = () => {
 
   statisticToCompareL.forEach((leftStat, index) => {
     rightStat = statisticToCompareR[index];
-    const leftValue = leftStat.dataset.value;
-    const rightValue = rightStat.dataset.value;
+    let leftValue = parseFloat(leftStat.dataset.value);
+    let rightValue = parseFloat(rightStat.dataset.value);
     if (rightValue > leftValue) {
-      console.log(rightValue);
       leftStat.classList.remove("neutral");
-      leftStat.classList.add("neutral-win");
-    } else {
-      console.log(leftValue);
+      leftStat.classList.add("neutral-lose");
+    } else if (rightValue === leftValue) {
+      leftStat.classList.remove("neutral");
+      leftStat.classList.add("neutral-lose");
       rightStat.classList.remove("neutral");
-      rightStat.classList.add("neutral-win");
+      rightStat.classList.add("neutral-lose");
+    } else {
+      rightStat.classList.remove("neutral");
+      rightStat.classList.add("neutral-lose");
     }
   });
 };
 
 //function than display the html view from statistics
 const movieTemplate = (movieDetail) => {
-  const boxOffice = parseInt(movieDetail.BoxOffice.replace(/\$|,/g, ""));
-  const metaScore = parseInt(movieDetail.Metascore);
-  const rating = parseFloat(movieDetail.imdbRating);
-  const votes = parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
+  console.log(movieDetail.data);
+  let boxOffice =
+    movieDetail.boxOffice === "N/A" ? 0 : parseInt(movieDetail.BoxOffice.replace(/\$|,/g, ""));
+  let metaScore = movieDetail.Metascore === "N/A" ? 0 : parseInt(movieDetail.Metascore);
 
-  let awards = movieDetail.Awards.split(" ").reduce((acc, curr) => {
-    let word;
-    word = parseInt(curr);
+  let rating = movieDetail.imdbRating === "N/A" ? 0 : parseFloat(movieDetail.imdbRating);
+  let votes =
+    movieDetail.imdbVotes === "N/A" ? 0 : parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
 
-    if (isNaN(word)) {
-      return acc;
-    } else {
-      return acc + word;
-    }
-  }, 0);
+  let awards =
+    movieDetail.Awards === "N/A"
+      ? 0
+      : movieDetail.Awards.split(" ").reduce((acc, curr) => {
+          let word = parseFloat(curr);
+
+          if (isNaN(word)) {
+            return acc;
+          } else {
+            return acc + word;
+          }
+        }, 0);
 
   return `
   

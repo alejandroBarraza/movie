@@ -127,8 +127,8 @@ figure .image img {
   color: white;
 }
 
-.neutral-win {
-  background-color: red !important;
+.neutral-lose {
+  background-color: #4c0013 !important;
   margin-top: 20px !important;
   color: white;
 }
