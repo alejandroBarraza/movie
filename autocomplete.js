@@ -42,9 +42,7 @@ const createAutocomplete = ({ root, renderOption, onOptionSelect, inputValue, on
   //fuction fetch a movie each time user type.
   const onInput = async ({ target }) => {
     //async beacuse movies should wait for fectch the movie.
-
     const items = await onFetchData(target.value); //movies constains the arrays of list movies
-    console.log(items);
     //if i do the fetch and got an empty array .close the dropmenu.
     if (!items.length) {
       //contains a empty array.

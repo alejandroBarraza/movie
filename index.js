@@ -65,13 +65,8 @@ const onMovieSelect = async (movie, summaryTarget, side) => {
   //select target summary in html and replace with movietemplate funcion.
   summaryTarget.style.display = "block";
   summaryTarget.innerHTML = movieTemplate(resp.data);
-  if (side === "left") {
-    left = resp.data;
-    console.log(left);
-  } else {
-    right = resp.data;
-    console.log(right);
-  }
+
+  side === "left" ? (left = resp.data) : (right = resp.data);
 
   if (left && right) {
     console.log("run comparison");
@@ -83,23 +78,41 @@ const onMovieCompare = () => {
   console.log("entre");
   const statisticToCompareL = document.querySelectorAll("#left-summary .notification");
   const statisticToCompareR = document.querySelectorAll("#right-summary .notification");
-  // const [awardsL, boxOfficeL, MetascoreL, ratingL, votesL] = statisticToCompareL.values();
-  statisticToCompareL.forEach((leftStat, index) => {
-    // rightStat = statisticToCompareR[index];
-    const valueleft = {
-      dollard: leftStat.querySelector(".title").innerText,
-    };
-    console.log(valueleft.dollard);
-  });
 
-  // if (side == "right") {
-  //   const [awardsR, boxOfficeR, MetascoreR, ratingR, votesR] = statisticToCompareR.values();
-  // }
-  // const box = boxOfficeL > boxOfficeR ? console.log("win") : console.log("lose");
+  statisticToCompareL.forEach((leftStat, index) => {
+    rightStat = statisticToCompareR[index];
+    const leftValue = leftStat.dataset.value;
+    const rightValue = rightStat.dataset.value;
+    if (rightValue > leftValue) {
+      console.log(rightValue);
+      leftStat.classList.remove("neutral");
+      leftStat.classList.add("neutral-win");
+    } else {
+      console.log(leftValue);
+      rightStat.classList.remove("neutral");
+      rightStat.classList.add("neutral-win");
+    }
+  });
 };
 
 //function than display the html view from statistics
 const movieTemplate = (movieDetail) => {
+  const boxOffice = parseInt(movieDetail.BoxOffice.replace(/\$|,/g, ""));
+  const metaScore = parseInt(movieDetail.Metascore);
+  const rating = parseFloat(movieDetail.imdbRating);
+  const votes = parseInt(movieDetail.imdbVotes.replace(/,/g, ""));
+
+  let awards = movieDetail.Awards.split(" ").reduce((acc, curr) => {
+    let word;
+    word = parseInt(curr);
+
+    if (isNaN(word)) {
+      return acc;
+    } else {
+      return acc + word;
+    }
+  }, 0);
+
   return `
   
     <article class = "media">
@@ -116,24 +129,24 @@ const movieTemplate = (movieDetail) => {
         </div>
       </div>
     </article>
-    <article class="notification "> 
+    <article data-value=${awards} class="notification neutral "> 
       <p class="title">${movieDetail.Awards}</p>
       <p class="subtitle">Awards</p>
     </article>
-    <article class="notification "> 
-      <p class="title">${movieDetail.BoxOffice}</p>
+    <article data-value=${boxOffice} class="notification neutral "> 
+      <p class="title" >${movieDetail.BoxOffice}</p>
       <p class="subtitle">Box Office</p>
     </article>
-    <article class="notification "> 
-      <p class="title">${movieDetail.Metascore}</p>
+    <article data-value=${metaScore} class="notification neutral "> 
+      <p class="title" >${movieDetail.Metascore}</p>
       <p class="subtitle">Metascore</p>
     </article>
-    <article class="notification "> 
-      <p class="title">${movieDetail.imdbRating}</p>
+    <article data-value=${rating} class="notification neutral "> 
+      <p class="title" >${movieDetail.imdbRating}</p>
       <p class="subtitle">IMDB Raiting</p>
     </article>
-    <article class="notification "> 
-      <p class="title">${movieDetail.imdbVotes}</p>
+    <article data-value=${votes} class="notification neutral "> 
+      <p class="title" >${movieDetail.imdbVotes}</p>
       <p class="subtitle">Votes</p>
     </article>
   

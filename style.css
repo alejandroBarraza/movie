@@ -121,9 +121,15 @@ figure .image img {
   object-fit: cover;
 }
 
-.notification {
-  margin-top: 20px !important;
+.neutral {
   background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 20px !important;
+  color: white;
+}
+
+.neutral-win {
+  background-color: red !important;
+  margin-top: 20px !important;
   color: white;
 }
 
